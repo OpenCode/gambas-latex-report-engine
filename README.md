@@ -1,9 +1,9 @@
-gambas-latex-report-engine
+Latex Report Engine
 ==========================
 
 A report engine for Gambas language created to generate dvi or pdf report with latex syntax
 
-To create a report you must just use the preconfigured functions.
+To create a report you must use preconfigured functions.
 
 Example for a simple report:
 
