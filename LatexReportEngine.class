@@ -1,0 +1,170 @@
+' Gambas class file
+
+' ---------
+' VARIABLES
+' ---------
+
+' ----- Report datas
+Private report_name As String
+Private report_path As String
+
+' ----- Content datas
+Private content As String
+Private dateclass_paper As String
+Private dataclass_font_size As String
+Private dataclass_type As String
+Private title_title As String
+Private title_author As String
+Private title_date As String
+
+' ---------
+' CONSTANTS
+' ---------
+
+' ----- Report datas
+Public Const FormatPdf As String = "pdf"
+Public Const FormatDvi As String = "dvi"
+
+
+' ----- INIT Function for Class
+Public Sub _new(name As String, Optional path As String = "/tmp")
+    report_name = name
+    report_path = path
+    content = ""
+    dateclass_paper = "a4paper"
+    dataclass_font_size = "12pt"
+    dataclass_type = "article"
+    title_title = ""
+    title_author = ""
+    title_date = ""
+
+End
+
+' -----------------
+' SETTING functions
+' -----------------
+
+Public Sub SetReportPath(path As String)
+
+    report_path = path
+
+End
+
+Public Sub SetReportName(name As String)
+
+    report_name = name
+
+End
+
+' -----------------
+' GETTING functions
+' -----------------
+
+Public Sub GetReportPath() As String
+    
+    Return report_path
+    
+End
+
+Public Sub GetReportName() As String
+    
+    Return report_name
+    
+End
+
+Public Sub GetContent() As String
+    
+  Return content  
+    
+End
+
+' ------------------------
+' REPORTING CORE functions
+' ------------------------
+
+' -------------------------
+' GENERIC Functions
+' -------------------------
+
+Private Sub SetContent(text As String)
+    
+    content = text
+    
+End
+
+Public Sub ClearContent()
+
+  SetContent("")
+
+End
+
+Public Sub DocumentClass(Optional paper As String = "", Optional font_size As String = "", Optional type As String = "")
+    
+    dateclass_paper = IIf(paper <> "", paper, dateclass_paper)
+    dataclass_font_size = IIf(font_size <> "", font_size, dataclass_font_size)
+    dataclass_type = IIf(type <> "", type, dataclass_type)
+    InsertLatex("\\documentclass[" & dateclass_paper & "," & dataclass_font_size & "]{" & dataclass_type & "}")
+    
+End
+
+Public Sub Begin()
+
+    InsertLatex("\\begin{document}")  
+
+End
+
+Public Sub SetTitle(Optional title As String, Optional author As String, Optional data As String)
+
+    title_title = IIf(title <> "", title, title_title)
+    title_author = IIf(author <> "", author, title_author)
+    title_date = IIf(data <> "", data, title_date)
+    InsertLatex("\\title{" & title_title & "}")
+    InsertLatex("\\author{" & title_author & "}")
+    InsertLatex("\\date{" & title_date & "}")
+    InsertLatex("\\maketitle")
+
+End
+
+Public Sub End()
+
+    InsertLatex("\\end{document}")
+
+End
+
+' --------------
+' TEXT Functions
+' --------------
+
+Public Sub InsertText(text As String)
+
+    content = content & text
+
+End
+
+Public Sub InsertLatex(code As String)
+
+    InsertText(code)
+
+End
+
+' -----------------
+' PARSING Functions
+' -----------------
+
+Public Sub Parsing(Optional type As String = "pdf")
+
+    Dim report_file As File
+    Dim software As String
+    Dim parsing_process As Process
+
+    report_file = Open report_path &/ report_name & ".tex" For Write Create
+    Close #report_file
+
+    If type = "dvi" Then
+        software = "latex"
+    Else
+        software = "pdflatex"
+    Endif
+
+    Shell "cd " & report_path & "; " & software & " " & report_path &/ report_name & ".tex"
+End
