@@ -1,5 +1,28 @@
 ' Gambas class file
 
+' -----------------------------------------------------------------------------
+'
+'  LATEX REPORT ENGINE
+'  
+'  Copyright(c) 2014 Francesco OpenCode Apruzzese All Rights Reserved.
+'  www.e-ware.org
+'  opencode@e-ware.org
+'
+'  This program Is Free software: you can redistribute it And / Or modify
+'  it under the terms Of the GNU Affero General Public License As Published
+'  by the Free Software Foundation, either version 3 Of the License, Or
+'  (at your option)any later version.
+'
+'  This program Is Distributed In the hope that it will be useful,
+'  but WITHOUT ANY WARRANTY; without even the implied warranty Of
+'  MERCHANTABILITY Or FITNESS For A PARTICULAR PURPOSE.See the
+'  GNU Affero General Public License For more details.
+'
+'  You should have received a Copy Of the GNU Affero General Public License
+'  along With this program. If Not ,see <http:/www.gnu.org/licenses>
+'
+' -----------------------------------------------------------------------------
+
 ' ---------
 ' VARIABLES
 ' ---------
