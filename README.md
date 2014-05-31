@@ -23,3 +23,8 @@ Example for a simple report:
     parser.Parsing(parser.FormatPdf)
     
 The functions DocumentClass() and Begin() are required first of all other functions and End() is the last function to call before the parsing.
+
+DEPENDENCIES
+==========================
+
+LAtex REport Engine need 'latex' and 'pdflatex' to generate the final report. If you need to obtain the report in dvi or pdf format you must install this softwares.
