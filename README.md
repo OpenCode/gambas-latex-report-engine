@@ -41,3 +41,8 @@ DEPENDENCIES
 ==========================
 
 Latex Report Engine need 'latex' and 'pdflatex' to generate the final report. If you need to obtain the report in dvi or pdf format you must install this softwares.
+
+DOCS
+==========================
+
+Visit the [WIKI](https://github.com/OpenCode/gambas-latex-report-engine/wiki) for documentation
