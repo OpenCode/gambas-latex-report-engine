@@ -158,9 +158,12 @@ End
 ' TEXT Functions
 ' --------------
 
-Public Sub InsertText(text As String)
+Public Sub InsertText(text As String, Optional newline As Boolean = True)
 
     content = content & text
+    If newline == True Then
+        content = content & gb.NewLine
+    Endif
 
 End
 
@@ -181,6 +184,7 @@ Public Sub Parsing(Optional type As String = "pdf")
     Dim parsing_process As Process
 
     report_file = Open report_path &/ report_name & ".tex" For Write Create
+    Print #report_file, content
     Close #report_file
 
     If type = "dvi" Then
@@ -189,5 +193,6 @@ Public Sub Parsing(Optional type As String = "pdf")
         software = "pdflatex"
     Endif
 
-    Shell "cd " & report_path & "; " & software & " " & report_path &/ report_name & ".tex"
+    Shell "cd " & report_path & "; " & software & " " & report_path &/ report_name & ".tex" Wait
+
 End
