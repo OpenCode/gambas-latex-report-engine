@@ -47,7 +47,10 @@ Private title_date As String
 ' ----- Report datas
 Public Const FormatPdf As String = "pdf"
 Public Const FormatDvi As String = "dvi"
-
+Public Const LineBreak As String = "\\newline"
+Public Const Today As String = "\\today"
+Public Const TableOfContents As String = "\\tableofcontents"
+Public Const Latex As String = "\\LaTeX\\"
 
 ' ----- INIT Function for Class
 Public Sub _new(name As String, Optional path As String = "/tmp")
@@ -160,17 +163,25 @@ End
 
 Public Sub InsertText(text As String, Optional newline As Boolean = True)
 
-    content = content & text
+    content = content & text & gb.NewLine
     If newline == True Then
-        content = content & gb.NewLine
+        content = content & LineBreak & gb.NewLine
     Endif
 
 End
 
 Public Sub InsertLatex(code As String)
 
-    InsertText(code)
+    InsertText(code, False)
 
+End
+
+Public Sub IncludeElement(element As Variant)
+
+    ' Include an element created with external engine class
+    
+    InsertLatex(element.Include())
+    
 End
 
 ' -----------------

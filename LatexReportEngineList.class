@@ -1,0 +1,107 @@
+' Gambas class file
+
+
+' -----------------------------------------------------------------------------
+'
+'  LATEX REPORT ENGINE
+'  
+'  Copyright(c) 2014 Francesco OpenCode Apruzzese All Rights Reserved.
+'  www.e-ware.org
+'  opencode@e-ware.org
+'
+'  This program Is Free software: you can redistribute it And / Or modify
+'  it under the terms Of the GNU Affero General Public License As Published
+'  by the Free Software Foundation, either version 3 Of the License, Or
+'  (at your option)any later version.
+'
+'  This program Is Distributed In the hope that it will be useful,
+'  but WITHOUT ANY WARRANTY; without even the implied warranty Of
+'  MERCHANTABILITY Or FITNESS For A PARTICULAR PURPOSE.See the
+'  GNU Affero General Public License For more details.
+'
+'  You should have received a Copy Of the GNU Affero General Public License
+'  along With this program. If Not ,see <http:/www.gnu.org/licenses>
+'
+' -----------------------------------------------------------------------------
+
+' ---------
+' VARIABLES
+' ---------
+
+' ----- Content datas
+Private begin_content As String
+Private content As String
+Private end_content As String
+Private list_type As String
+
+' ---------
+' CONSTANTS
+' ---------
+
+' ----- Report datas
+Public Const Itemize As String = "itemize"
+Public Const Enumerate As String = "enumerate"
+
+' -------------------
+' LIST CORE functions
+' -------------------
+
+Public Sub _new(Optional type As String = "itemize", Optional values As String[])
+
+    Dim value As String
+
+    content = ""
+    DefineContent("begin", type)
+    DefineContent("end", type)
+    list_type = type
+    If values <> Null Then
+        For Each value In values
+            content = content & "\\item " & value & gb.NewLine
+        Next
+    Endif
+
+End
+
+' -----------------
+' SETTING functions
+' -----------------
+Private Sub DefineContent(content_type As String, Optional type As String = "")
+    
+    list_type = IIf(type <> "", type, list_type)
+    If content_type == "begin" Then
+        begin_content = "\\begin{" & type & "}"
+    Else
+        end_content = "\\end{" & type & "}"
+    Endif
+    
+End
+
+Public Sub SetType(type As String)
+    
+    list_type = type
+    DefineContent("begin", type)
+    DefineContent("end", type)
+    
+End
+
+' -----------------
+' GETTING functions
+' -----------------
+
+Public Sub GetType() As String
+    
+    Return list_type
+    
+End
+
+Public Sub GetList() As String
+    
+    Return begin_content & gb.NewLine & content & end_content & gb.NewLine
+    
+End
+
+Public Sub Include() As String
+    
+    Return GetList()  
+    
+End
