@@ -51,11 +51,17 @@ Public Const LineBreak As String = "\\newline"
 Public Const Today As String = "\\today"
 Public Const TableOfContents As String = "\\tableofcontents"
 Public Const Latex As String = "\\LaTeX\\"
+
 ' ----- Control Datas
 Private ValidFormat As String[] = [FormatPdf, FormatDvi]
 Private ValidPaper As String[] = ["a0paper", "a1paper", "a2paper", "a3paper", "a4paper", "a5paper", "a6paper", "b0paper", "b1paper", "b2paper", "b3paper", "b4paper", "b5paper", "b6paper", "c0paper", "c1paper", "c2paper", "c3paper", "c4paper", "c5paper", "c6paper", "b0j", "b1j", "b2j", "b3j", "b4j", "b5j", "b6j", "ansiapaper", "ansibpaper", "ansicpaper", "ansidpaper", "ansiepaper", "letterpaper", "executivepaper", "legalpaper"]
 
 ' ----- INIT Function for Class
+
+' ------------------------
+' REPORTING CORE functions
+' ------------------------
+
 Public Sub _new(name As String, Optional path As String = "/tmp")
 
     report_name = name
@@ -69,48 +75,6 @@ Public Sub _new(name As String, Optional path As String = "/tmp")
     title_date = ""
 
 End
-
-' -----------------
-' SETTING functions
-' -----------------
-
-Public Sub SetReportPath(path As String)
-
-    report_path = path
-
-End
-
-Public Sub SetReportName(name As String)
-
-    report_name = name
-
-End
-
-' -----------------
-' GETTING functions
-' -----------------
-
-Public Sub GetReportPath() As String
-    
-    Return report_path
-    
-End
-
-Public Sub GetReportName() As String
-    
-    Return report_name
-    
-End
-
-Public Sub GetContent() As String
-    
-  Return content  
-    
-End
-
-' ------------------------
-' REPORTING CORE functions
-' ------------------------
 
 ' -------------------------
 ' GENERIC Functions
@@ -164,6 +128,44 @@ Public Sub End()
 
 End
 
+' -----------------
+' SETTING functions
+' -----------------
+
+Public Sub SetReportPath(path As String)
+
+    report_path = path
+
+End
+
+Public Sub SetReportName(name As String)
+
+    report_name = name
+
+End
+
+' -----------------
+' GETTING functions
+' -----------------
+
+Public Sub GetReportPath() As String
+    
+    Return report_path
+    
+End
+
+Public Sub GetReportName() As String
+    
+    Return report_name
+    
+End
+
+Public Sub GetContent() As String
+    
+  Return content  
+    
+End
+
 ' --------------
 ' TEXT Functions
 ' --------------
@@ -171,7 +173,7 @@ End
 Public Sub InsertText(text As String, Optional newline As Boolean = True)
 
     content = content & text & gb.NewLine
-    If newline == True Then
+    If newline == True And text <> LineBreak Then
         content = content & LineBreak & gb.NewLine
     Endif
 
