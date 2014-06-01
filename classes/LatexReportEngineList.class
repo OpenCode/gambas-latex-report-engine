@@ -40,23 +40,29 @@ Private list_type As String
 ' ----- Report datas
 Public Const Itemize As String = "itemize"
 Public Const Enumerate As String = "enumerate"
+Public Const Description As String = "description"
 ' ----- Control Datas
-Private ControlListType As String[] = ["itemize", "enumerate"]
+Private ValidlListType As String[] = [Itemize, Enumerate, Description]
 
 ' -------------------
 ' LIST CORE functions
 ' -------------------
 
-Public Sub _new(Optional type As String = "itemize", Optional values As String[])
+Public Sub _new(Optional type As String = "itemize", Optional values As Variant[])
 
-    Dim value As String
+    Dim value As Variant
 
     content = ""
     SetType(type)
     list_type = type
     If values <> Null Then
         For Each value In values
-            content = content & "\\item " & value & gb.NewLine
+            If TypeOf(value) == gb.String Then
+                content = content & "\\item " & value & gb.NewLine
+            Else
+                content = content & "\\item[" & value[0] & "]" & value[1] & gb.NewLine
+            Endif
+            
         Next
     Endif
 
@@ -69,7 +75,7 @@ End
 Public Sub SetType(Optional type As String = "")
 
     ' ----- Check the type of the list passed as argument
-    If type And Not ControlListType.Exist(type) Then
+    If type And Not ValidlListType.Exist(type) Then
         Error.Raise("Not defined list type for " & type)
     Endif
     ' ----- Set parameters

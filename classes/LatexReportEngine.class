@@ -51,6 +51,7 @@ Public Const LineBreak As String = "\\newline"
 Public Const Today As String = "\\today"
 Public Const TableOfContents As String = "\\tableofcontents"
 Public Const Latex As String = "\\LaTeX\\"
+Public Const Dots As String = "\\ldots"
 
 ' ----- Control Datas
 Private ValidFormat As String[] = [FormatPdf, FormatDvi]
