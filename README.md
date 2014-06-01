@@ -27,4 +27,4 @@ The functions DocumentClass() and Begin() are required first of all other functi
 DEPENDENCIES
 ==========================
 
-LAtex REport Engine need 'latex' and 'pdflatex' to generate the final report. If you need to obtain the report in dvi or pdf format you must install this softwares.
+Latex Report Engine need 'latex' and 'pdflatex' to generate the final report. If you need to obtain the report in dvi or pdf format you must install this softwares.
