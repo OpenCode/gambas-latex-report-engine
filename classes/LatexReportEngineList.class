@@ -57,16 +57,22 @@ Public Sub _new(Optional type As String = "itemize", Optional values As Variant[
     list_type = type
     If values <> Null Then
         For Each value In values
-            If TypeOf(value) == gb.String Then
-                content = content & "\\item " & value & gb.NewLine
-            Else
-                content = content & "\\item[" & value[0] & "]" & value[1] & gb.NewLine
-            Endif
-            
+            AddElement(value)
         Next
     Endif
 
 End
+
+Public Sub AddElement(value As Variant)
+
+    If TypeOf(value) == gb.String Then
+        content = content & "\\item " & value & gb.NewLine
+    Else
+        content = content & "\\item[" & value[0] & "]" & value[1] & gb.NewLine
+    Endif
+
+End
+
 
 ' -----------------
 ' SETTING functions
